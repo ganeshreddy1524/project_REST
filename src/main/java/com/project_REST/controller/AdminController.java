@@ -1,5 +1,6 @@
 package com.project_REST.controller;
 
+import com.project_REST.dto.CreateUserRequest;
 import com.project_REST.entity.User;
 import com.project_REST.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping("/user")
-    public User create(@RequestBody User user) {
-        return adminService.createUser(user);
+    @PostMapping("/employee")
+    public User addEmployee(@RequestBody CreateUserRequest request) {
+        return adminService.createEmployee(request);
     }
 
     @GetMapping("/users")

@@ -12,16 +12,20 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
+    // Apply leave
     @PostMapping("/{empId}/leave")
-    public LeaveRequest apply(@PathVariable String empId, @RequestBody LeaveRequest req) {
-        return employeeService.applyLeave(empId, req);
+    public LeaveRequest apply(
+            @PathVariable String empId,
+            @RequestBody LeaveRequest request) {
+
+        return employeeService.applyLeave(empId, request);
     }
 
-    @GetMapping("/{empId}/leaves")
+    // View employee leaves
+    @GetMapping("/{empId}/leave")
     public List<LeaveRequest> view(@PathVariable String empId) {
         return employeeService.viewLeaves(empId);
     }
 }
-

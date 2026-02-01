@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
-    List<LeaveRequest> findByEmployeeId(String empId);
+    List<LeaveRequest> findByEmployee_Id(String employeeId);
+    List<LeaveRequest> findByEmployee_Manager_Id(String managerId);
 }
 

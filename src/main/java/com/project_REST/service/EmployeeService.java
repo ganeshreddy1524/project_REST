@@ -13,21 +13,38 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
-    @Autowired
+    
     private LeaveRequestRepository leaveRepo;
 
-    @Autowired
+
     private UserRepository userRepo;
+    @Autowired
+    EmployeeService(LeaveRequestRepository leaveRepo,UserRepository userRepo){
+        this.leaveRepo=leaveRepo;
+        this.userRepo=userRepo;
+    }
+
 
     public LeaveRequest applyLeave(String empId, LeaveRequest request) {
         User emp = userRepo.findById(empId).orElseThrow();
         request.setEmployee(emp);
         request.setStatus(LeaveStatus.PENDING);
+        request.setStartDate(request.getStartDate());
+        request.setEndDate(request.getEndDate());
         return leaveRepo.save(request);
     }
 
-    public List<LeaveRequest> viewLeaves(String empId) {
-        return leaveRepo.findByEmployeeId(empId);
+    public List<LeaveRequest> viewLeaves(String employeeId) {
+        // 1. Fetch the data and store it in a variable named 'leaves'
+        List<LeaveRequest> leaves = leaveRepo.findByEmployee_Id(employeeId);
+
+        // 2. Perform the check BEFORE returning
+        if (leaves.isEmpty()) {
+            throw new RuntimeException("No leave requests found for you.");
+        }
+
+        // 3. Finally, return the list
+        return leaves;
     }
 }
 

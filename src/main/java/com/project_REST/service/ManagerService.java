@@ -13,14 +13,20 @@ import java.util.List;
 @Service
 public class ManagerService {
 
-    @Autowired
+
     private UserRepository userRepo;
 
-    @Autowired
-    private LeaveRequestRepository leaveRepo;
 
-    public List<User> viewTeam(String managerId) {
-        return userRepo.findByManagerId(managerId);
+    private LeaveRequestRepository leaveRepo;
+    @Autowired
+    ManagerService(UserRepository userRepo,LeaveRequestRepository leaveRepo){
+        this.userRepo=userRepo;
+        this.leaveRepo=leaveRepo;
+    }
+
+    public List<LeaveRequest> viewTeamLeaves(String managerId) {
+
+        return leaveRepo.findByEmployee_Manager_Id(managerId);
     }
 
     public LeaveRequest approve(Long requestId) {

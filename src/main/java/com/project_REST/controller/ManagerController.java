@@ -1,7 +1,7 @@
 package com.project_REST.controller;
 
 import com.project_REST.entity.LeaveRequest;
-import com.project_REST.entity.User;
+
 import com.project_REST.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ public class ManagerController {
     @Autowired
     ManagerService managerService;
 
-    @GetMapping("/{mgrId}/team")
-    public List<User> team(@PathVariable String mgrId) {
-        return managerService.viewTeam(mgrId);
+    @GetMapping("/{mgrId}/viewleaves")
+    public List<LeaveRequest> team(@PathVariable String mgrId) {
+        return managerService.viewTeamLeaves(mgrId);
     }
 
     @PutMapping("/leave/{id}/approve")
